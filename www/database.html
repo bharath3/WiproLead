@@ -67,19 +67,6 @@ you must download this and include the directory your html file is in
  
 <!-- main scripts used in this example -->
  <script type="text/javascript" charset="utf-8">
- function checkinternet()
-{
-$.ajax({
-  url: 'https://www.google.co.in',
-  success: function(data) {
-    alert('Connection.');
-
-  },
-  error: function(data) {
-    alert('No Internet Connection.');
-  }
-});
-}
 
 // global variables
 var db;
@@ -208,7 +195,7 @@ function AddValueToDB() {
 <input id="txLastName" type="text" placeholder="Last Name">
 <input type="button" value="Add record" onClick="AddValueToDB()">
 <input type="button" value="Refresh" onClick="ListDBValues()">
-<input type="button" value="Check Connection" onclick="checkinternet()" />
+
  <br>
 <br>
 <span style="font-weight:bold;">Currently stored values:</span>
