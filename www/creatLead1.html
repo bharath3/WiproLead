@@ -1,0 +1,463 @@
+
+
+	<!DOCTYPE html>
+	<html onapplicationready="htmlInitDone()">
+		<head>
+			<meta charset="utf-8">
+			<title>Wipro Lead</title>
+			<!--base href="http://59.162.104.50/home/wipro/"!-->
+			<!--script src="/cordys/wcp/application.js"></script-->
+	
+	<link rel="stylesheet" href="CSS/Cordys_min.css"/>
+	<link rel="stylesheet" href="CSS/Structure_min.css"/>
+
+	<link href="CSS/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+	<link rel="stylesheet" href="CSS/bootstrap.min.css"/>
+		<link rel="stylesheet" href="CSS/jquery-ui.css"/>
+		<link rel="stylesheet" href="CSS/wipro1.css"/>
+	<script src="JS/jQuery.js"></script>
+	<script src="JS/jquery-ui.js"></script>
+	<script src="JS/jquery-1.10.2.js"></script>
+	<script src="JS/jquery.mobile.min.js" type="text/javascript"></script>
+	
+			
+		<script src="JS/wipro11.js" type="text/javascript"></script>	
+			<script>
+			
+				function htmlInitDone(){
+				 
+				}
+				var userName="";
+				
+	var lead_id="";
+				var custstr=[];
+				var dealstr=[];
+				var listid=1;
+
+	$(window).load(function() {
+		$(".ui-radio").css("display","inline");
+		$(".ui-radio input").css({"position":"relative","left":"0px"});
+		$(".ui-btn-corner-all").css({"-moz-border-radius":"1em","-webkit-border-radius":"0em","border-radius":"0em"});
+	$("#bunit").parent().css({"text-align":"left"});
+	$("#Vertical").parent().css({"text-align":"left"});
+	$("#Region").parent().css({"text-align":"left"});
+	$("#Branch").parent().css({"text-align":"left"});
+	$("#SalesPerson").parent().css({"text-align":"left"});
+	$("#LeadSource").parent().css({"text-align":"left"});
+	$("#SubVertical").parent().css({"text-align":"left"});
+	$("#TypeofAccount").parent().css({"text-align":"left"});
+	$("#Segment").parent().css({"text-align":"left"});
+	$("#SubSegment").parent().css({"text-align":"left"});
+	$("#Status").parent().css({"text-align":"left"});
+	
+			userName = document.cookie.split(";")[0].split("=")[1];
+		
+		});
+		$(function(){
+		//getactivitystages();
+		//getDealer();
+		//getcustomer();
+		$("#EmployeeNo").hide();
+		$("#lay").css("display","none");
+		});
+		
+					
+				var counter11 = 1;			
+		function addComp(){
+		event.preventDefault();
+							counter11++;
+							var newRow = jQuery('<tr class="sam1"><td><div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c"><input type="text" name = "CName'+ counter11 + '" style="background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffffff), color-stop(1, #e5e5e5) ); " class="ui-input-text ui-body-c"></div><td style="border: none;background:none">&nbsp;&nbsp;<img src="images/closeicon.png" name="delete" onclick="delete11(\'Competitors\',this)" style="width:.5cm; height: .5cm; border: none;"/></td></tr>');
+								jQuery("#Competitors").append(newRow);
+						
+		}
+		function delete11(tabname,r){
+														// deleting row
+	var rowCount =$("#"+tabname+" > tbody > tr").length
+	if(rowCount<=2)
+	{
+	$("#"+tabname+" > tbody tr > td > div > input").val("");
+	}
+	else
+	{    var i = r.parentNode.parentNode.rowIndex;
+		document.getElementById(tabname).deleteRow(i);
+		}
+	}
+
+
+
+
+
+
+	function getleadid(){
+
+	var Leadid1= new $.cordys.model({									//model  for getting the travel id
+					objectName: "wp_mtr_leadid_generation", // Name of the Business Object
+					context : document.getElementById('EmployeeNo'), // Where the data has to be bound to
+					update: {
+						// Settings for the read method
+						namespace: "http://schemas.cordys.com/wiproDBMetadata",
+										 dataType: "* json",
+						method: "UpdateWp_mtr_leadid_generation",	
+				
+	}
+		});
+	var newRequest = Leadid1.addBusinessObject({ld_name:'L'});
+	Leadid1.synchronize(newRequest).done(function (resposeObject){
+	lead_id="L"+resposeObject.tuple.new.wp_mtr_leadid_generation.ld_id;
+	save(lead_id);
+	});
+
+	}
+	function save(lead_id){
+
+	var arr=[];
+	var arr1=[];
+
+
+
+	var str="<InputXML><ContactDetailsXML>";
+	
+		$("#contactlist li").each(function(i,el){
+		arr.push("<tuple><new><wp_tra_contact_details><cd_name>"+$("#contactlist li").eq(i).find("span").eq(0).text().split(":")[1].trim()+"</cd_name><cd_contact_no1>"+$("#contactlist li").eq(i).find("span").eq(1).text().split(":")[1].trim()+"</cd_contact_no1><cd_email_id1>"+$("#contactlist li").eq(i).find("span").eq(2).text().split(":")[1].trim()+"</cd_email_id1><cd_lead_id>"+lead_id+"</cd_lead_id><cd_createdby>"+userName+"</cd_createdby><cd_created_date></cd_created_date><cd_last_updatedby>"+userName+"</cd_last_updatedby><cd_last_updated_date></cd_last_updated_date><cd_primary></cd_primary></wp_tra_contact_details></new></tuple>")
+		});
+		var str1=str+arr.join("")+"</ContactDetailsXML>";
+		 $(".sam1").each(function (i, el) {
+			var $tds = $(this).find('td div input');
+			  
+				
+				arr1.push("<tuple><new><wp_tra_competitors><com_competitor_id>"+$tds.eq(0).val()+"</com_competitor_id><com_lead_enquiry_id>"+lead_id+"</com_lead_enquiry_id></wp_tra_competitors></new></tuple>")
+			// do something with productId, product, Quantity
+		});
+	var str2=str1+"<competitorsXML>"+arr1.join("")+"</competitorsXML>";
+	var str3="<InfluencerXML></InfluencerXML>";
+	var str4=str2+str3;
+	var  str5="<InsertLeadXML><UpdateWp_tra_lead><wp_tra_lead><lead_id>"+lead_id+"</lead_id><lead_customer>"+$("#CustomerProspect").val()+"</lead_customer><lead_customer_name>"+$("#Customer").val()+"</lead_customer_name><lead_business_unit>"+$("#bunit").val
+	()+"</lead_business_unit><lead_region>"+$("#Region").val()+"</lead_region><lead_branch>"+$("#Branch").val()+"</lead_branch><lead_employee_no>"+$("#EmployeeNo").val()+"</lead_employee_no><lead_project_name>"+$("#ProjectName").val()+"</lead_project_name><lead_location>"+$("#ProjectLocation").val()+"</lead_location><lead_primay_contact_person></lead_primay_contact_person><lead_status>"+$("#Status").val()+"</lead_status><lead_notes></lead_notes><lead_sales_person>"+$("#SalesPerson").val()+"</lead_sales_person><lead_primary_influencer /><lead_vertical>"+$("#Vertical").val()+"</lead_vertical><lead_sub_vertical>"+$("#SubVertical").val()+"</lead_sub_vertical><lead_reason_for_closure></lead_reason_for_closure><lead_source>"+$("#LeadSource").val()+"</lead_source><lead_type>"+$("input[name=LType]").val()+"</lead_type> <lead_expected_closure_date>"+$("#LeadExpCloDate").val()+"</lead_expected_closure_date> <lead_segment>"+$("#Segment").val()+"</lead_segment><lead_sub_segment>"+$("#SubSegment").val()+"</lead_sub_segment><lead_account_type>"+$("#TypeofAccount").val()+"</lead_account_type><lead_pushto_dealer>false</lead_pushto_dealer> <lead_approx_value>"+$("#AppValue").val()+"</lead_approx_value><lead_dealer_id>"+$("#Dealerid").val()+"</lead_dealer_id><lead_total_sqft_area>"+$("#TotalSqftArea").val()+"</lead_total_sqft_area><lead_priority></lead_priority><lead_confidence_level></lead_confidence_level><lead_seats_no></lead_seats_no><lead_created_by>"+userName+"</lead_created_by><lead_created_date></lead_created_date><lead_last_modified_by>"+userName+"</lead_last_modified_by><lead_last_modified_date></lead_last_modified_date></wp_tra_lead></UpdateWp_tra_lead></InsertLeadXML><InsertCommentsXML><UpdateWp_tra_comments><tuple><new><wp_tra_comments></wp_tra_comments> <com_lead_enquiry_no>"+lead_id+"</com_lead_enquiry_no><com_form_name></com_form_name><com_comments>"+$("#Comments").val()+"</com_comments><com_createdby>"+userName+"</com_createdby><com_created_date></com_created_date></new></tuple></UpdateWp_tra_comments></InsertCommentsXML></InputXML>";
+
+	var str6=str4+str5;
+	var str7=str6.replace(/[&]/g,'&amp;');	
+	 var xmlDoc = $.parseXML(str7);
+
+	var request = cordys.cloneXMLDocument(CreatQLead.XMLDocument);
+		cordys.appendXMLNode(xmlDoc.documentElement, cordys.selectXMLNode(request, ".//*[local-name()='ContactDetailsXML']"))
+					bdiToolbar.clear()
+					bdiToolbar.request = request;
+					bdiToolbar.addListener("ondatacompleted", setTravelEvents);
+
+
+					bdiToolbar.reset();	
+	//create model to call bpm
+	}
+	function setTravelEvents(eventObj){
+	var response = eventObj.srcElement.data;
+	if(cordys.getNodeText(response, ".//*[local-name()='output1']")=="Success"){
+	alert("Lead Created with ID "+lead_id);
+	}else
+	{
+	alert("Lead Creation Failure!! Try Again");
+	}
+	}
+	function autocust(key1){
+$("#"+key1.id).attr("autocomplete","on");
+ $("#"+key1.id).autocomplete({
+max:10,
+     minLength:2,
+      source: custstr
+    });
+}
+	function autodeal(key1){
+$("#"+key1.id).attr("autocomplete","on");
+ $("#"+key1.id).autocomplete({
+max:10,
+     minLength:2,
+      source: dealstr
+    });
+}
+	function getcustomer(){
+
+Customer1 = new $.cordys.model({									//model  for getting the travel id
+				objectName: "sap_customer_master", // Name of the Business Object
+				context : document.getElementById('Customer'), // Where the data has to be bound to
+				read: {
+					// Settings for the read method
+					namespace: "http://schemas.cordys.com/wp_pc_calendar",
+									 dataType: "* json",
+					method: "getDistinctCustomerName",	
+				parameters:{
+						}
+}
+	});
+	Customer1.read().done(function (resposeObject){
+var len1=resposeObject.length;
+for(i=0;i<len1;i++){
+
+custstr[i]=resposeObject[i].NAME1;
+}
+});
+}
+function getDealer(){
+Dealer1 = new $.cordys.model({									//model  for getting the travel id
+				objectName: "sap_customer_master", // Name of the Business Object
+				context : document.getElementById('Dealer'), // Where the data has to be bound to
+				read: {
+					// Settings for the read method
+					namespace: "http://schemas.cordys.com/wp_pc_calendar",
+									 dataType: "* json",
+					method: "getDistinctDealerName",	
+				parameters:{
+		
+				}
+}
+	});
+		Dealer1.read().done(function (resposeObject){
+var len1=resposeObject.length;
+for(i=0;i<len1;i++){
+dealstr[i]=resposeObject[i].NAME1+"~"+resposeObject[i].cust_Index;
+}
+});
+}
+function setdealerid(){
+var a1=$("#Dealer").val().split("~")[0];
+var a2=$("#Dealer").val().split("~")[1];
+$("#Dealer").val(a1);
+$("#Dealerid").val(a2);
+}
+function ClosePop(){
+$('#myPopup-screen')[0].click();
+$('#myPopup-screen')[0].click();
+}
+function ClosePop1(){
+$('#myPopup1-screen')[0].click();
+$('#myPopup1-screen')[0].click();
+}
+function popupclear(){
+listid++;
+if($("#CustomerName").val()!="" && $("#MobileNo").val()!="" && $("#Emailid").val()!=""){
+$("#contactlist").append("<li style='list-style-type:none'><a href='#myPopup1' onclick='ak11(this)' data-rel='popup' class='ui-btn ui-btn-inline ui-corner-all'   style='margin-left: 3%;height: inherit;text-align: left;text-shadow:none;text-decoration: none'><span id='cname11"+listid+"'>Customer Name : "+ $("#CustomerName").val()+"</span><br><span id='Mobno"+listid+"'>Mobile No : "+ $("#MobileNo").val()+"</span><br><span id='email11"+listid+"'>Email id :	"+ $("#Emailid").val()+"</span></a><div><img src='images/closeicon.png' onclick='delete1(this)' style='HEIGHT: 30px;float: right;margin-top:-4%;'></img></div></li><hr style='margin:0px;border: 0px;color:black'/>");
+
+ $("#CustomerName").val("");
+				$("#MobileNo").val("");
+				$("#Emailid").val("");
+				
+			ClosePop();	
+			}
+			else{
+alert("fill value");
+}
+}
+
+var plainid=[];
+function ak11(x){
+plainid=[];
+var a=$(x).children("span").eq(0).text().split(":")[1].trim();
+var b=$(x).children("span").eq(1).text().split(":")[1].trim();
+var c=$(x).children("span").eq(2).text().split(":")[1].trim();
+//var d=$(x).children().children("span").eq(3).text().split(":")[1];
+$("#CustomerName1").val(a);
+$("#MobileNo1").val(b);
+$("#Emailid1").val(c);
+
+plainid.push($(x).children('span').eq(0).attr('id'));
+plainid.push($(x).children('span').eq(1).attr('id'));
+plainid.push($(x).children('span').eq(2).attr('id'));
+
+
+}
+function editpop(){
+if($("#CustomerName1").val()!="" && $("#MobileNo1").val()!="" && $("#Emailid1").val()!=""){
+var a1=plainid[0];
+var a2=plainid[1];
+var a3=plainid[2];
+
+$("#"+a1).text("Customer Name:"+$('#CustomerName1').val());
+$("#"+a2).text("Mobile No:"+$('#MobileNo1').val());
+$("#"+a3).text("Email id:"+$('#Emailid1').val());
+
+ClosePop1();
+}
+else{
+alert("fill value");
+}
+}
+function delete1(x){
+$(x).parent().parent().remove();
+}
+
+			</script>
+			<style>
+
+
+			</style>
+			<script type = "cordys/xml" id = "CreatQLead">
+	<SOAP:Envelope xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/">
+	  <SOAP:Body>
+		<CreateQLead1 xmlns="http://schemas.cordys.com/default">
+		  <ContactDetailsXML>PARAMETER</ContactDetailsXML>
+		 
+		</CreateQLead1>
+	  </SOAP:Body>
+	</SOAP:Envelope>
+			</script>
+		</head>
+		<body >
+			<div data-role="page" data-control-title="Home" id="page1" style="background: url(IMAGES/back.jpg);">
+			<div class="fix" style="">
+<img src="images/menu.png" style="height: 45px;" id="menu" onclick="showMenu()"/>
+<img src="images/wipro.png" style="margin-left: 42%;height: 45px;"  />
+<!--div id="id1" style=""><img src="images/message.png" style="" onclick="showinbox()" id="msg"/>&nbsp&nbsp
+<a href="#myPanel" class="kill" style="padding:0 0 0 0;left: 20%;"><img src="images/menu.png" style="" onclick="filterclick()" id="fil"></a>
+</div!-->
+</div>
+<div class="overlay" id="lay"  data-swipe-close="true" style="  z-index: 100;">
+<hr/>
+<p style="text-align:center;color:whitesmoke">MENU</p>
+
+<hr/>
+
+<div class="col menu">
+<ul> 
+<li class="menu" style=" list-style-type: none;"><div onclick="open1()"><a href="#" data-transition="flip" style="text-decoration:none;width: 0px;" class="ui-link">Home</a></div>
+<hr>
+<a href="#" data-transition="flip" style="text-decoration:none;width: 0px;" class="ui-link"  onclick="leadhit()">Lead Hitrate</a>
+<hr>
+<p>DASHBOARD TWO</p>
+<hr>
+<div  onclick="signout()"> <a>Sign Out</a></div>
+</li>
+</div>
+
+</div>
+	<div style="background: rgba(255, 255, 255, 0.30);margin-right: 2%;margin-left: 2%; margin-top: 5%;" onclick="hidemenu()">
+	<div data-role="collapsible-set"  ID="startcol">
+					<div data-role="collapsible" data-collapsed="false" id="Section1">
+					<h3>Request Details</h3>
+				<div data-role="content">
+					<input name="" id="CustomerProspect" placeholder="Customer/Prospect*(Int Value)" value="" type="text" data-mini="true" data-theme="c" style="text-indent: 2%;" ></input>
+					<input name="" id="ProjectName" placeholder="Project Name" value="" type="text" data-mini="true" data-theme="c" style="text-indent: 2%;"   ></input>
+					<input name="" id="ProjectLocation" placeholder="Project Location" value="" type="text" data-mini="true" data-theme="c" style="text-indent: 2%;" ></input>
+					<!--input name="" id="Travel_ID" placeholder="Business Unit" value="" type="text" data-mini="true" data-theme="c"  style="text-indent: 2%;" ></input-->
+					<select id="bunit" onchange="bunitchange()">
+	  <option value="0">--Business Unit--</option>
+	  <option value="1">C&I</option>
+	  <option value="2">Furniture</option>
+	  <option value="3">Chair</option>
+	</select>
+					<!--input name="" id="Vertical" placeholder="Vertical" value="" type="text" data-mini="true" data-theme="c" style="text-indent: 2%;"></input-->
+					<select id="Vertical" onchange="vertichange()">
+					 <option value="%">--Vertical--</option>
+					</select>
+					<select id="Region" onchange="Regionchange()">
+					 <option value="%">--Region--</option>
+					</select>
+					<select id="Branch" onchange="Branchchange()">
+					 <option value="%">--Branch--</option>
+					</select>
+					<select id="SalesPerson" onchange="SPchange()">
+					 <option value="%">--Sales Person--</option>
+					</select>
+								<input name="" id="EmployeeNo" placeholder="Employee No" value="" type="text" data-mini="true" data-theme="c"  style="text-indent: 2%;"></input>
+					
+	<fieldset data-type="horizontal">
+	<label  style="text-shadow: none;font-size: large;color: #1F1C1D;">Lead Type</label>    &nbsp&nbsp&nbsp&nbsp
+					<input id="Ltype0" name="LType" value="0" type="radio" data-mini="true" data-theme="c" style="height: 20px;
+  width: 20px;"></input><label  style="text-shadow: none;font-size: large;color: #1F1C1D;">Lead</label>
+				&nbsp&nbsp	<input  id="Ltype1" name="LType" value="1" type="radio" data-mini="true" data-theme="c" style="height: 20px;
+  width: 20px;"></input><label  style="text-shadow: none;font-size: large;color: #1F1C1D;">Project Account</label>
+				</fieldset>
+							  </div>
+							  </div>
+	<div data-role="collapsible" data-collapsed="true" id="Section1">
+	<h3>Customer / Competitor Details</h3>
+	<div data-role="content">
+<a href="#myPopup" data-rel="popup" class="ui-btn ui-btn-inline ui-corner-all"   style="width: inherit;height: inherit;text-align: left;text-shadow:none;width:20%" > Add Customer Details
+</a>
+					<div  style="margin-left: -20px;"><ul id="contactlist"style="list-style-type:none;background-color:rgb(234, 234, 234)"></ul></div>
+
+<div data-role="popup" id="myPopup" data-overlay-theme="b" style="left=0px; background-color: rgb(255, 155, 0);">
+<div style="margin-left:5%;margin-right:5%">			
+			<label>Customer Name</label><input type="text" id="CustomerName" style="margin-left:5%;margin-right:5%"/>
+				<label>Mobile No:</label><input type="text" id="MobileNo" style="margin-left:5%;margin-right:5%"/>
+				<label>Email id</label><input type="text" id="Emailid" style="margin-left:5%;margin-right:5%"/>
+			
+				<button id="popupok" onclick="popupclear()">OK</button>
+					</div>
+				</div>	
+<div data-role="popup" id="myPopup1" data-overlay-theme="b" style="left=0px; background-color: rgb(255, 155, 0);">
+				<div style="margin-left:5%;margin-right:5%">
+				<label>Customer Name</label><input type="text" id="CustomerName1"/>
+				<label>Mobile No:</label><input type="text" id="MobileNo1" />
+				<label>Email id</label><input type="text" id="Emailid1"/>
+				
+				<button id="popupok" onclick="editpop()">OK</button>
+				</div>
+					</div>
+				<br />	
+				<a href="#" class="add-city"><image src="IMAGES/plus.png" height="20" width="20" onclick="addComp()"></a>	
+		<table class="competitors table-responsive" border=2 id="Competitors">
+			<tr>
+					<th style="background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #cccccc), color-stop(1, #b2b2b2) )">Competitors</th>
+			</tr>
+
+			
+			<tr class="sam1">
+				<td>
+					<input type="text" name="CName" style="background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffffff), color-stop(1, #e5e5e5) ); "/>
+				</td>
+			</tr>
+		</table>
+					</div>
+	</div>
+					<div data-role="collapsible" data-collapsed="true" id="Section1">
+					<h3>Qualifying Details</h3>
+					<div data-role="content">
+					
+					
+					<select id="LeadSource" onchange="">
+						<option value="0">--Lead Source--</option>
+					</select>
+					<select id="SubVertical" onchange="">
+						<option value="0">--Sub Vertical--</option>
+					</select>
+		
+					<select id="TypeofAccount" onchange="subverticalchange()">
+						<option value=" ">--Type of Account--</option>
+						<option value="Retention">Retention</option>
+						<option value="Acquisition">Acquisition</option>
+					</select>
+					<input name="" id="Customer" placeholder="Customer" value="" type="text" data-mini="true" data-theme="c"  style="text-indent: 2%;" onkeydown="autocust(this)"/ >
+					<select id="Segment" onchange="sgementchange()">
+						<option value="">--Segment--</option>
+					</select>
+					<select id="SubSegment" onchange="">
+						<option value="">--Sub Segment--</option>
+					</select>
+					<input name="" id="Dealer" placeholder="Dealer" value="" type="text" data-mini="true" data-theme="c"  style="text-indent: 2%;" onkeydown="autodeal(this)" onfocusout="setdealerid()"/>
+					<input name="" id="Dealerid" placeholder="Dealerid" value="" type="hidden" data-mini="true" data-theme="c"  style="text-indent: 2%;" />
+					</div>
+					<label style="text-shadow: none;  font-size: large;color: black;"><b>Lead Expected Closure Date</b></label>
+					<input name="" id="LeadExpCloDate" placeholder="Lead Expected Closure Date" value="" type="Date" data-mini="true" data-theme="c"  style="text-indent: 2%;"/ >
+					<input name="" id="AppValue" placeholder="App Value(in Rs)" value="" type="text" data-mini="true" data-theme="c"   style="text-indent: 2%;"/>
+				
+					<select id="Status" onchange="">
+						<option value="0">--Status--</option>
+					</select>
+					<input name="" id="TotalSqftArea" placeholder="TotalSqftArea(Int Value)" value="" type="text" data-mini="true" data-theme="c"  style="text-indent: 2%;"/>
+						
+					</div>	
+						<div data-role="collapsible" data-collapsed="true" id="Section1">
+					<h3>Comments</h3>
+					<div data-role="content">
+						<input name="" id="Comments" placeholder="Comments" value="" type="text" data-mini="true" data-theme="c"  style="text-indent: 2%;" />
+						
+					</div>
+					</div>
+	</div>
+	<br />
+	<br />
+	<button type="button" id="Save"   onclick="getleadid()">Save</button>
+					<button type="button" id="Enquiry" >Enquiry</button>
+	<button type="button" id="Cancel"  >Cancel</button>
+	</div>	
+	<div cordysType="wcp.library.data.BusDataIsland" id="bdiToolbar" automatic="false" async="true" style="display:none"> </div>
+		</body>
+	</html>

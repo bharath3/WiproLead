@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@media only screen  
+			and (orientation : portrait) {
+				body{
+					background: url(images/back.jpg);
+					background-size: 100% 100%;
+                                        background-repeat:no-repeat;
+			
+
+
+
+
+		}
+
+
+#menu{
+
+height: 28px;
+  margin-bottom: 4px;
+
+
+}
+#msg
+{
+
+height: 25px;
+  margin-bottom: 13px;
+
+}
+#fil
+{
+
+height:30px;
+margin-left:55%;
+margin-left: 0px;
+margin:10px;
+
+
+
+
+}
+
+
+#id1{
+float:right
+}
+
+
+.fix
+{
+height:50px;
+position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  background-color: rgba(0,0,0,0.32);
+
+}
+
+.wipro
+{
+
+margin-left: 30%;
+  height: 45px;
+}
+
+
+
+}
+
+
+
+
+
+
+
+@media only screen 
+			and (orientation : landscape) {
+				body{
+					background: url(images/back.jpg);
+					background-size: 100% 150%;
+                                         background-repeat:no-repeat;
+
+	
+
+
+
+
+				}
+#menu{
+
+height: 30px;
+  margin-bottom: 90px;
+//margin-left: -10%;
+
+
+}
+
+
+
+#msg
+{
+
+height: 30px;
+    margin-top: 40%;
+
+}
+#fil
+{
+
+height: 30px;
+margin-left:55%;
+margin-left: 0px;
+
+
+
+
+
+}
+
+#id1{
+float:right;
+margin-top: -4%;
+}
+
+
+.fix
+{
+height:15%;
+position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  background-color: rgba(0,0,0,0.32);
+
+}
+.wipro
+{
+  margin-bottom: 80px;
+margin-left: 42%;
+  height: 50px;
+}
+
+
+
+}
+.menu1
+{
+padding: 8px;
+    margin-bottom: 7px;
+    background-color :white;a
+    color:black;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
+}
+
+/*side menu overlay*/
+
+
+.overlay{
+  position: fixed;
+  top:0;
+  left: 0;
+  width: 45%;
+  height: 50%;
+  z-index: 10;
+  background-color: rgba(0,0,0,0.8); /*dim the background*/
+ //visibility:hidden;
+}
+
+/*tabs */
+.tabs {
+    position:absolute;
+    width: 100%;
+  //  background: #fff;
+   // overflow: hidden;
+    padding-bottom: 100px;
+  //  border: 1px solid #000;
+    }
+
+.tabs > section > a {
+    position: relative;
+    display: block;
+    float: left;
+    border: 1px solid white;
+    width:30.66%;
+    background-color:black;
+    color:whitesmoke;
+    text-decoration:none;
+    text-align:center;
+    height:30px;
+
+    }
+
+.tabs > section > div {
+    position: absolute;
+    top: 1.5em;
+    
+    width: 100%;
+   // background: #fff;
+    //border: 1px solid blue;
+    }
+
+.tabs > section:target > div {
+    left: 0;
+    }
+
+.tabs > section:not(:target)#one > div {
+    left: 0;
+    }
+
+
+
+
+
+* {
+    box-sizing: border-box;
+}
+.row:after {
+    content: "";
+    clear: both;
+    display: block;
+}
+[class*="col-"] {
+    float: left;
+    padding: 15px;
+}
+html {
+    font-family: "Lucida Sans", sans-serif;
+}
+.header {
+    //background-color: white;
+    color: #ffffff;
+   // padding: 15px;
+}
+.menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.menu li {
+    padding: 8px;
+    margin-bottom: 7px;
+    background-color :white;
+    color:black;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+.menu li:hover {
+    //background-color: #0099cc;
+}
+.menu p:hover {
+    //background-color: #0099cc;
+}
+
+.aside {
+    background-color: #33b5e5;
+    padding: 15px;
+    color: #ffffff;
+    text-align: center;
+    font-size: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+.footer {
+    background-color: #0099cc;
+    color: #ffffff;
+    text-align: center;
+    font-size: 12px;
+    padding: 15px;
+}
+/* For desktop: */
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    [class*="col-"] {
+        width: 100%;
+    }
+}
+</style>
+<script src="JS/jquery-1.11.2.min.js"></script>
+<!--script src="/cordys/html5/cordys.html5sdk.js" type="text/javascript"></script-->
+<!--script src="/cordys/html5/plugins/cordys.authentication.sso.js" type="text/javascript"></script-->
+<script src="JS/knockout.js" type="text/javascript"></script>
+<link rel="stylesheet" href="CSS/jquery.mobile-1.4.5.min.css">
+
+<script src="JS/jquery.mobile-1.4.5.min.js"></script>
+
+<script src="JS/wipro11.js"></script>
+<script type="text/javascript">
+ var link11 ="";
+$(document).on("pageinit",function(){
+  $("#lay").css("display","none");
+});
+
+var lead=null,enq=null;
+var tttype="";
+var userName;
+$(function() {
+hide1();
+
+$("#lay").css("visibility","hidden");
+      
+        userName = document.cookie.split(";")[0].split("=")[1];
+	document.getElementById("name").innerHTML ='WELCOME'+' ' +':'+userName.toUpperCase(); 
+
+        // Create a new model
+     // getlead();
+//getenquiry();
+
+
+
+});
+function hide1()
+{
+
+$("#leads1").css("display","block");
+$("#engh1").css("display","none");
+
+
+
+
+}
+function hide2()
+{
+
+$("#leads1").css("display","none");
+$("#engh1").css("display","block");
+
+
+}
+
+
+
+function filterclick(){
+$("#IndentNo").hide();
+if($("#leads1").css('display')=="block")
+        {
+            tttype="lead1";
+				$("#LeadNo").show();
+				$("#OrderNo").show();
+			$("#IndentNo").hide();
+        }
+        else if($("#engh1").css('display')=="block")
+        {
+            tttype="engh1";
+			$("#LeadNo").show();
+			$("#OrderNo").show();
+			$("#IndentNo").hide();
+        }
+		else if($("#order1").css('display')=="block")
+        {
+            tttype="order1";
+			$("#LeadNo").hide();
+				$("#OrderNo").show();
+			$("#IndentNo").show();
+        }
+		
+$('#finyear option[value != "0"]').remove();
+$('#finyear').val('0').change();
+//set fin year
+       fineay1 = new $.cordys.model({
+            objectName: "wp_pc_calendar", // Name of the Business Object
+          context : $("#finyear")[0], // Where the data has to be bound
+            read: {
+                // Settings for the read method
+                namespace: "http://schemas.cordys.com/wp_pc_calendar",
+                dataType: "* json",
+                method: "GetAllFinancialYears",
+                // Parameters for the method
+                parameters: {
+                 }
+            }
+        });
+ 	fineay1.read().done(function (resposeObject){
+
+for(i=0;i<resposeObject.length;i++){
+$("#finyear").append('<option value='+resposeObject[i].Pc_FinYear+'>'+resposeObject[i].Pc_FinYear+'</option>');
+}
+});
+$('#Status option[value != "%"]').remove();
+$('#Status').val('%').change();
+//set status
+status1 = new $.cordys.model({
+            objectName: "wp_mtr_stages", // Name of the Business Object
+          context : $("#Status")[0], // Where the data has to be bound
+            read: {
+                // Settings for the read method
+                namespace: "http://schemas.cordys.com/wiproDBMetadata",
+                dataType: "* json",
+                method: "GetWp_mtr_stagesObjects",
+                // Parameters for the method
+                parameters: {
+				fromSt_id:"0",
+				toSt_id:"99"
+                 }
+            }
+        });
+ 	status1.read().done(function (resposeObject){
+
+for(i=0;i<resposeObject.length;i++){
+$("#Status").append('<option value='+resposeObject[i].st_id+'>'+resposeObject[i].st_description+'</option>');
+}
+});
+}
+function finyearchange(){
+$('#Quarter option[value != "0"]').remove();
+$('#Quarter').val('0').change();
+//set quarter
+     Quarter1 = new $.cordys.model({
+            objectName: "wp_pc_calendar", // Name of the Business Object
+          context : $("#Quarter")[0], // Where the data has to be bound
+            read: {
+                // Settings for the read method
+                namespace: "http://schemas.cordys.com/wp_pc_calendar",
+                dataType: "* json",
+                method: "GetAllQuartersByFYear",
+                // Parameters for the method
+                parameters: {
+				Pc_FinYear:$("#finyear").val()
+                 }
+            }
+        });
+ 	Quarter1.read().done(function (resposeObject){
+
+for(i=0;i<resposeObject.length;i++){
+$("#Quarter").append('<option value='+resposeObject[i].Pc_Quarter+'>'+resposeObject[i].Pc_Quarter+'</option>');
+}
+});
+
+}
+function quarterchange(){
+$('#PC option[value != "0"]').remove();
+$('#PC').val('0').change();
+//setPC
+ PC1 = new $.cordys.model({
+            objectName: "wp_pc_calendar", // Name of the Business Object
+          context : $("#PC")[0], // Where the data has to be bound
+            read: {
+                // Settings for the read method
+                namespace: "http://schemas.cordys.com/wp_pc_calendar",
+                dataType: "* json",
+                method: "GetMonthsByFYandQuarter",
+                // Parameters for the method
+                parameters: {
+				Pc_FinYear:$("#finyear").val(),
+				Pc_Quarter:$("#Quarter").val()
+                 }
+            }
+        });
+ 	PC1.read().done(function (resposeObject){
+
+for(i=0;i<resposeObject.length;i++){
+$("#PC").append('<option value='+resposeObject[i].Pc_PC+'>'+resposeObject[i].Pc_PC+'</option>');
+}
+});
+}
+function pcchange(){
+$('#Week option[value != ""]').remove();
+$('#Week').val('').change();
+//set week
+ Week1 = new $.cordys.model({
+            objectName: "wp_pc_calendar", // Name of the Business Object
+          context : $("#Week")[0], // Where the data has to be bound
+            read: {
+                // Settings for the read method
+                namespace: "http://schemas.cordys.com/wp_pc_calendar",
+                dataType: "* json",
+                method: "GetWeeksByFYandQrtrandPC",
+                // Parameters for the method
+                parameters: {
+				Pc_FinYear:$("#finyear").val(),
+				Pc_Quarter:$("#Quarter").val(),
+				Months:$("#PC").val()
+                 }
+            }
+        });
+ 	Week1.read().done(function (resposeObject){
+
+for(i=0;i<resposeObject.length;i++){
+$("#Week").append('<option value='+resposeObject[i].Pc_Week+'>'+resposeObject[i].Pc_Week+'</option>');
+}
+});
+}
+function search1(){
+if( tttype=="lead1"){
+ getlead();
+}
+else if( tttype=="engh1"){
+getenquiry();
+}
+else if( tttype=="order1"){}
+}
+function getlead(){
+var Customer2;
+var Project2;
+var LeadNo2;
+var OrderNo2;
+if($("#Customer").val()=="")
+ Customer2="%";
+else
+Customer2=$("#Customer").val();
+if($("#Project").val()=="")
+Project2="%";
+else
+Project2=$("#Project").val();
+if($("#LeadNo").val()=="")
+LeadNo2="%";
+else
+LeadNo2=$("#LeadNo").val();
+
+ lead = new $.cordys.model({
+            objectName: "wp_tra_lead", // Name of the Business Object
+          context : $("#leads")[0], // Where the data has to be bound
+            read: {
+                // Settings for the read method
+                namespace: "http://schemas.cordys.com/wiproDBMetadata",
+                dataType: "* json",
+                method: "GetLeadsByUser_New",
+                // Parameters for the method
+                parameters: {
+                    BUnit:$("#bunit").val(),
+                    Region:$("#Region").val(),
+                    Branch:$("#Branch").val(),
+                    SalesPerson:userName,
+                    FinancialYear:"1516",
+                    Quarter:$("#Quarter").val(),
+                    Month:$("#PC").val(),
+                    Week:$("#Week").val(),
+                    UserID:userName,
+                    Customer:Customer2,
+                    Project:Project2,
+                    Status:$("#Status").val(),
+                    Lead_ID:LeadNo2,
+                    Vertical:$("#Vertical").val(),
+                    SubVertical:$("#SubVertical").val(),
+                    Segment:$("#Segment").val(),
+                    SubSegment:$("#SubSegment").val(),
+                    dateCalendar:$("#date1").val()
+				    }
+            }
+        });
+	lead.clear();
+     lead.read().done(function (resposeObject){
+if(resposeObject.length<=0){
+$('#leads').html("<li><span data-bind=\"text:lead_id\"></span><br/><span data-bind=\"text:lead_source\"></span><br/><span data-bind=\"text:lead_created_date\"></span><br/><span data-bind=\"text:lead_location\"></span><br/><span data-bind=\"text:lead_account_type\"></span></li>");
+alert("No Data Found");
+}
+
+});
+
+}
+function getenquiry(){
+var Customer2;
+var Project2;
+var LeadNo2;
+var OrderNo2;
+if($("#Customer").val()=="")
+ Customer2="%";
+else
+Customer2=$("#Customer").val();
+if($("#Project").val()=="")
+Project2="%";
+else
+Project2=$("#Project").val();
+if($("#LeadNo").val()=="")
+LeadNo2="%";
+else
+LeadNo2=$("#LeadNo").val();
+
+
+ enq = new $.cordys.model({
+            objectName: "wp_tra_enquiry", // Name of the Business Object
+          context : $("#engh")[0], // Where the data has to be bound
+            read: {
+                // Settings for the read method
+                namespace: "http://schemas.cordys.com/wiproDBMetadata",
+                dataType: "* json",
+                method: "GetEnquiriesByUser_New",
+                // Parameters for the method
+                parameters: {
+                    BUnit:$("#bunit").val(),
+                    Region:$("#Region").val(),
+                    Branch:$("#Branch").val(),
+                    SalesPerson:userName,
+                    FinancialYear:"1516",
+                    Quarter:$("#Quarter").val(),
+                    Month:$("#PC").val(),
+                    Week:$("#Week").val(),
+                    UserID:userName,
+                    Customer:Customer2,
+                    Project:Project2,
+                    Status:$("#Status").val(),
+                    enq_id:LeadNo2,
+                    Vertical:$("#Vertical").val(),
+                    SubVertical:$("#SubVertical").val(),
+                    Segment:$("#Segment").val(),
+                    SubSegment:$("#SubSegment").val(),
+                    dateCalendar:$("#date1").val()
+
+}
+            }
+        });
+		enq.clear();
+		enq.read().done(function (resposeObject){
+			if(resposeObject.length<=0){
+				$('#engh').html("<li> <span data-bind=\"text:enq_id\"></span><br/> <span data-bind=\"text:enq_lead_id\"></span> <br/> <span data-bind=\"text:enq_customer_name\"></span> <br/> <span data-bind=\"text:enq_location\"></span> <br/> <span data-bind=\"text:enq_account_type\"></span> </li>");
+				alert("No Data Found");
+			}
+		});
+
+}
+
+
+
+
+
+
+
+
+
+
+function myFunc(link1){
+var wt= $(window).width();
+var ht= $(window).height();
+var a=$(link1);
+
+   //	var link11=$("a h3 span").first().text();
+   link11 =$(link1).find("span").first().text()
+		document.getElementById('frame1').style.minwidth=top.window.screen.width;
+		//frame1.style.minHeight=top.window.screen.height;
+		//frame1.style.minWidth=top.window.screen.width
+		//alert(link11);
+	//document.getElementById("akhilhide").value=link11;
+window.lead=link11;
+	var url1 = "Details.htm?name="+ encodeURIComponent(link11);
+		 $('#frame1').attr('src',url1);
+		 $('#myPopup-popup').css({"min-width":wt+'px',"min-height":ht+'px',"top":"0px","left":"0px"});
+		
+		$('#myPopup-popup').css({"width":wt+'px',"height":ht+'px'});
+		
+		 $('#myPopup').css("height",ht+'px');
+
+		    $('#myPopup-popup').css({"left":"0px","right":"1px"});
+$('#frame1').css('width',wt+'px');
+$('#frame1').css('height', ht+'px');
+$("#myPopup-popup").css("left","0px")
+//$("#employeeList").hide();
+$("#akh11").hide();
+}
+function ClosePop(){
+$('#myPopup-screen')[0].click();
+$('#myPopup-screen')[0].click();
+//$("#employeeList").show();
+$("#akh11").show();
+}
+
+
+
+function open1(){
+ location.replace("CreatLead.htm" );
+}
+
+
+
+
+
+function showinbox(){
+location.replace("inbox.htm");
+}
+function leadhit() {
+location.replace("LeadYearlyHitrate.htm")
+}
+
+
+
+</script>
+</head>
+<body  background="images/back.jpg">
+<div style="overflow:hidden">
+  <div data-role="panel" id="myPanel" data-swipe-close="true" data-display="overlay" data-position="right" style=""> 
+<select id="finyear" onchange="finyearchange()">
+<option value="0">--Financial Year--</option>
+</select>
+   <select id="Quarter" onchange="quarterchange()">
+<option value="0">--Quarter--</option>
+</select>
+<select id="PC" onchange="pcchange()">
+<option value="0">--PC--</option>
+</select>
+   <select id="Week">
+<option value="">--Week--</option>
+</select>
+<input id="date1" type="date"/>
+<input id="Customer"  type="text" placeholder="Customer"/>
+<input id="Project"  type="text" placeholder="Project"/>
+
+<input id="LeadNo"  type="text" placeholder="LeadNo"/>
+<input id="OrderNo" type="text" placeholder="OrderNo"/>
+
+
+<input id="IndentNo" type="text" placeholder="IndentNo"/><!--only for order-->
+<div><h4>Sub Filter</h4></div>
+<select id="Status">
+<option value="%">--Status--</option>
+</select>
+<select id="bunit" onchange="bunitchange()">
+<option value="%">--Business Unit--</option>
+ <option value="1">C&I</option>
+  <option value="2">Furniture</option>
+  <option value="3">Chair</option>
+</select>
+<select id="Vertical" onchange="vertichange()">
+<option value="%">--Vertical--</option>
+</select>
+<select id="Region" onchange="Regionchange()">
+<option value="%">--Region--</option>
+</select>
+<select id="Branch" onchange="Branchchange()">
+<option value="%">--Branch--</option>
+</select>
+<select id="SalesPerson">
+<option value="%">--Sales Person--</option>
+</select>
+<select id="SubVertical" onchange="subverticalchange()">
+<option value="0">--Sub Vertical--</option>
+</select>
+<select id="Segment" onchange="sgementchange()">
+<option value="">--Segment--</option>
+</select>
+<select id="SubSegment">
+<option value="">--Sub-Segment--</option>
+</select>
+
+        <a href="#pageone" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-search ui-btn-icon-left" onclick="search1()">Search</a>
+		 <a href="#pageone" data-rel="close" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left">Clear</a>
+  </div> 
+  </div> 
+<div class="overlay" id="lay"  data-swipe-close="true" style="  z-index: 100;">
+<hr/>
+<p style="text-align:center;color:whitesmoke">MENU</p>
+
+<hr/>
+
+<div class="col menu">
+<ul> 
+<li class="menu"><div onclick="open1()"><a href="#" data-transition="flip" style="text-decoration:none;width: 0px;" class="ui-link">Create Lead</a></div>
+<hr>
+<a href="#" data-transition="flip" style="text-decoration:none;width: 0px;" class="ui-link"  onclick="leadhit()">Lead Hitrate</a>
+<hr>
+<p>DASHBOARD TWO</p>
+<hr>
+<div  onclick="signout()"> <a>Sign Out</a></div>
+</li>
+</div>
+
+</div>
+
+
+ <div data-role="main" class="ui-content" data-display="overlay">
+<div class="fix" style="">
+<img src="images/menu.png" style="" id="menu" onclick="showMenu()"/>
+<img src="images/wipro.png" style=""  class="wipro"/>
+<div id="id1" style=""><img src="images/message.png" style="" onclick="showinbox()" id="msg"/>&nbsp&nbsp
+<a href="#myPanel" class="kill" style="padding:0 0 0 0;left: 20%;"><img src="images/menu.png" style="" onclick="filterclick()" id="fil"></a>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div onclick="close1()">
+
+<div class="header" style="margin-top:10%">
+
+
+
+
+<h4 id="name" style="text-align: center"></h4>
+
+
+
+
+
+
+</div>
+<hr>
+<div class="row" id="akh11">
+<div class="tabs">
+    <section id="one" onclick="hide1()">
+        <a href="#one" style="text-shadow:none;">Lead</a>
+  <div class="col-3 menu" id="leads1" style="margin-left: -5%">
+
+<ul id="leads"  data-bind="foreach:wp_tra_lead">
+
+<li>
+
+<!--a data-bind="text:lead_id" onclick="myFunc(this)"></a-->
+<a href="#myPopup" data-rel="popup" class="ui-btn ui-btn-inline ui-corner-all" onclick="myFunc(this)"  data-transition="flow" style="margin-left: 3%;width: inherit;height: inherit;width: 97%;text-align: left;text-shadow:none;">  
+<span data-bind="text:lead_id" id="lead"></span>
+<br/>
+<span data-bind="text:lead_source"></span>
+<br/>
+<span data-bind="text:lead_created_date"></span>
+<br/>
+<span data-bind="text:wp_mtr_business_unit.bu_name"></span>
+<br/>
+<span data-bind="text:wp_mtr_branches.br_name"></span>
+</a>
+</li>
+</ul>
+
+</div>
+    </section>
+    <section id="two" onclick="hide2()">
+        <a href="#two"  style="text-shadow:none;">Enquiry</a>
+         <div  id="engh1" class="col-3 menu" style="margin-left:-5%">
+<ul id="engh"  data-bind="foreach:wp_tra_enquiry" >
+<li>
+<a href="#myPopup" data-rel="popup" class="ui-btn ui-btn-inline ui-corner-all" onclick="myFunc(this)"  data-transition="flow" style="margin-left: 3%;width: inherit;height: inherit;text-align: left;text-shadow:none;">
+<span data-bind="text:enq_id"></span><br/>
+<span data-bind="text:enq_lead_id"></span>
+<br/>
+
+<span data-bind="text:enq_customer_name"></span>
+<br/>
+<span data-bind="text:wp_mtr_business_unit.bu_name"></span>
+<br/>
+<span data-bind="text:wp_mtr_branches.br_name"></span>
+</a>
+</li>
+
+</ul>
+</div>
+    </section>
+<section id="three" >
+        <a href="#three"  style="text-shadow:none;">Order</a>
+         <div class="col-3 menu" id="order1">
+
+
+
+<!----------iframe ---------->
+
+
+
+
+</div>
+    </section>
+</div>
+
+
+<!--div class="col-6">
+
+</div>
+<div class="col-3 right">
+<div class="aside">
+
+</div>
+</div>
+
+</div>
+
+<div class="footer">
+
+</div-->
+</div>
+</div>
+<div data-role="popup" id="myPopup" data-overlay-theme="b" style="left=0px">
+					<iframe id="frame1" src="" width="" height="" style="margin-top: 0%;margin-bottom: 0%; border: 0;"></iframe>
+					</div>
+</body>
+
+<script type="text/javascript">
+function showMenu()
+{
+$("#lay").css("visibility","visible");
+$('#lay').show().focus();
+}
+
+function close1()
+{
+$("#lay").css("visibility","hidden");
+}
+
+
+
+</script>
+
+
+</html>
